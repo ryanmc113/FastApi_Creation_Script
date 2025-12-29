@@ -1,7 +1,5 @@
 from pathlib import Path
 
-global name
-name = ""
 
 fastapi_project_structure = {
     "backend": {
@@ -44,3 +42,28 @@ fastapi_project_structure = {
         },
     }
 }
+
+
+def creation_additional_services(project_structure: dict, current_path: Path):
+    for key, value in project_structure.items():
+
+        # Replace template names
+        name = "plan"
+        key = key.format(name=name)
+
+        if isinstance(value, dict):
+            # 1 Create the folder at the CURRENT path
+            new_path = current_path / key
+
+            # 2 Recurse INTO the folder
+            creation_additional_services(value, new_path)
+
+        else:
+            # 3 Create file at CURRENT path
+            file_path = current_path / key
+            file_path.touch()
+
+
+root = Path.cwd()
+
+creation_additional_services(fastapi_project_structure, root)

@@ -1,8 +1,5 @@
 from pathlib import Path
 
-global name
-name = "flash_card"
-
 fastapi_project_structure = {
     "backend": {
         "app": {
